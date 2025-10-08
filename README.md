@@ -11,12 +11,13 @@ This repository contains a comprehensive tutorial series on evaluating Large Lan
 This is a **7-part series** covering everything from basic metrics to advanced evaluation pipelines:
 
 1. **Part 1**: Introduction to LLM Evaluation Metrics
-2. **Part 2**: BLEU and ROUGE Deep Dive ← **Currently Available**
-3. **Part 3**: Perplexity and Language Model Evaluation ← *Coming Soon*
-4. **Part 4**: Semantic Similarity Metrics (BERTScore, METEOR)
-5. **Part 5**: Human Evaluation & Inter-Annotator Agreement
-6. **Part 6**: A/B Testing for LLM Applications
-7. **Part 7**: Building Custom Evaluation Pipelines
+* 
+* **Part 2**: BLEU and ROUGE Deep Dive — Currently Available
+* **Part 3**: Perplexity and Language Model Evaluation — Now Available
+* **Part 4**: Evaluating Retrieval-Augmented LLMs (RAG) — Now Available
+* **Part 5**: A/B Testing for LLM Applications — Now Available
+* **Part 6**: Human Evaluation & Preference Modeling — Now Available
+* **Part 7**: Holistic LLM Evaluation — Now Available
 
 ## 🚀 Quick Start
 
