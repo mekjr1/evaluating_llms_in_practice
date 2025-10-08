@@ -1,17 +1,21 @@
 # Perplexity: How Surprised Is Your Model?  
 *Evaluating LLMs in Practice — Part 3 of 7*
 
-## 📌 Recap
-In the previous articles we explored why simple classification metrics (accuracy, F₁‑score) fail for generative AI, and we performed a deep dive on BLEU and ROUGE.  Those metrics, while useful for measuring word‑overlap, still don’t tell us whether a model is *fluent* or how *surprised* it is by the text it generates or reads.  
+## 📌 RecapWhen you run the notebook you'll notice several key patterns:
+
+- **Train vs Test:** Our simple bigram model achieves a **train perplexity of around 1.12** but a **test perplexity of roughly 35.50** on unseen sentences. This highlights how sensitive perplexity is to unfamiliar word sequences.
+- **Clean vs Jumbled Text:** Well‑formed, grammatical sentences lead to lower perplexity (~1.05). If you scramble word order, perplexity spikes dramatically (>1,000,000) because the model is far more "surprised."
+- **N-gram Size Effects:** The notebook shows how different n-gram sizes (1-gram, 2-gram, etc.) affect perplexity, with 2-grams often performing best on small datasets.
+- **Model Capacity Matters:** In more advanced examples (when `transformers` is available), larger pretrained models tend to yield lower perplexity on the same text. However, a fluent hallucination can still have low perplexity — fluency is not the same as truth.the previous articles we explored why simple classification metrics (accuracy, F₁‑score) fail for generative AI, and we performed a deep dive on BLEU and ROUGE.  Those metrics, while useful for measuring word‑overlap, still don’t tell us whether a model is *fluent* or how *surprised* it is by the text it generates or reads.  
 
 This part introduces **perplexity**, the classic measure of language model fluency, and demonstrates how to compute it with open models.  A companion Jupyter notebook with code and examples is available in the [project repository](https://github.com/mekjr1/evaluating_llms_in_practice/tree/main/part-3-perplexity).
 
 ## 🤔 What Is Perplexity?
 Perplexity (PPL) is a probabilistic metric that quantifies how well a language model predicts the next token in a sequence.  
 
-- **Definition:** For a sequence of tokens \(x_1,x_2,\dots,x_N\) with model probabilities \(p(x_i)\), perplexity is the exponential of the average negative log‑likelihood:
+- **Definition:** For a sequence of tokens $x_1,x_2,\dots,x_N$ with model probabilities $p(x_i)$, perplexity is the exponential of the average negative log‑likelihood:
 
-\[\text{Perplexity}(X) = e^{-\frac{1}{N}\sum_{i=1}^N \log p(x_i)}.\]
+$$\text{Perplexity}(X) = e^{-\frac{1}{N}\sum_{i=1}^N \log p(x_i)}$$
 
 - **Intuition:** A lower perplexity means the model assigns higher probability to the observed text — it is *less surprised*.  A higher perplexity means the model struggles to predict the next word and is therefore more surprised.
 
@@ -68,8 +72,9 @@ print(f"Train perplexity: {train_ppl:.2f}\nTest perplexity: {test_ppl:.2f}")
 Running this code prints something like:
 
 ```
-Train perplexity: 1.12
-Test perplexity: 35.50
+Bigram Model Perplexity:
+Train: 1.122
+Test: 35.495
 ```
 
 The bigram model is very confident (low perplexity) on the text it was trained on, but much less so on unseen sentences.  This demonstrates how perplexity rises when a model encounters novel word sequences.

@@ -1,4 +1,24 @@
-# Evaluating Retrieval‑Augmented LLMs: Precision@k, Recall@k, Hit@k, MRR & nDCG  
+# Evaluating Retrieval‑Augmented LLMs: P# Compute metrics for k = 3 (see notebook for complete functions)
+metrics = []
+for model_name, preds in {'Model A': predictions_A, 'Model B': predictions_B}.items():
+    p_sum = r_sum = hit_sum = mrr_sum = ndcg_sum = 0
+    for q in queries:
+        rel = relevant_docs[q]
+        res = preds[q]
+        p_sum += precision_at_k(res, rel, k)
+        r_sum += recall_at_k(res, rel, k)
+        hit_sum += hit_at_k(res, rel, k)
+        mrr_sum += mrr(res, rel)
+        ndcg_sum += ndcg(res, rel)
+    n = len(queries)
+    metrics.append({
+        'Model': model_name,
+        'Precision@3': round(p_sum / n, 3),
+        'Recall@3': round(r_sum / n, 3),
+        'Hit@3': round(hit_sum / n, 3),
+        'MRR': round(mrr_sum / n, 3),
+        'nDCG': round(ndcg_sum / n, 3)
+    })Recall@k, Hit@k, MRR & nDCG  
 *Evaluating LLMs in Practice — Part 4 of 7*
 
 In [Part 3](./part3_perplexity_medium_post.md) we explored perplexity as a measure of language model fluency.  In this instalment we move beyond generation metrics and focus on the **retrieval** component of retrieval‑augmented generation (RAG) systems.  Before a language model can answer a question or summarise a document, it often relies on a retriever to fetch relevant context.  Evaluating that retriever is therefore crucial to the overall performance of the system.
